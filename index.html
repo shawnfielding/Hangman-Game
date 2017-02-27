@@ -1,119 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<title>Hangman</title>
-	<style>
-.gameStat{
-	display:inline-block;
-	width: 33%;
-	background-color: yellow;
-	height: 100px;
-}
-.theTable{
-	width: 100%;
-	height: 100px;
-}
-#theHangman{
-	width:100%
-	height:300px;
-	background-color:white;
-	text-align: center;
-}
-
-	</style>
-	<script type="text/javascript">
-// This is the object for a Game
-		var Game = function(){
-			this.gameLetters = [];
-			this.maxMisses = 3;
-			this.gameMisses = 0;
-		}
-// Game has one prototype
-//  !!!!! this is the function I have to work on to get different words
-		Game.prototype.gameWord = function(){
-			return "test".toUpperCase();
-		}
-
-//  This array holds all the games in the session
-		var games = [];
-
-//  This object holds the stats for the session
-		var gamesStats = {
-			played: games.length,
-			wins:0,
-			losses:0,
-		}
-// This global variable is used to instantiate a new game
-		var newGame;
-
-//  This function first checks to see if a game has been played.
-// 	If so, put it in the games array.  Then instantiate a new game.
-		function CreateNewGame(){
-			if(typeof(newGame) == "object"){
-				games.push(newGame);
-			}
-			newGame = new Game();
-		}
-
-// This function writes out the table.
-// The table is written out by using the length of the word and looping.
-// !!!!! If I have time, I should just generate the entire page with javascript.
-		function makeTable(){
-			document.write("<table id='wordTable'><tr>");
-			for (var i=0; i<newGame.gameWord().length; i++){
-				document.write("<td class='td"+newGame.gameWord().charAt(i)+"'>"+newGame.gameWord().charAt(i)+"</td>");
-			}
-			document.write("</tr></table>");
-		}
-//When the page loads, create a new game.
-		document.onload = CreateNewGame()
-
-			</script>
-		</head>
-		<body>
-			<h1>Hangman</h1>
-			<div id="theHangman"><img src="http://placehold.it/350x150"></div>
-			<div class="gamesStat" id="Played">Played: <script>document.write(gamesStats.played);</script></div>
-			<div class="gamesStat" id="wins">Wins:<script>document.write(gamesStats.wins);</script></div>
-			<div class="gamesStat" id="losses">Losses:<script>document.write(gamesStats.losses);</script></div>
-			<div class="theTable">
-				<script>
-					makeTable();
-				</script>
+</head>
+<body>
+	<div class="header">
+		<div><H1>HOMERMAN!!!</H1></div>
+		<div><H2>Like Hangman, just a little more Simpsons</H2></div>
+	</div>
+	<div class="container">
+		<div class="theBody">
+			<div class="imgdiv">
+				<div class="cover" id="head"></div>
+				<div class="cover" id="leftarm"></div>
+				<div class="cover" id="chest"></div>
+				<div class="cover" id="rightarm"></div>
+				<div class="cover" id="waist"></div>
+				<div class="cover" id="leftleg"></div>
+				<div class="cover" id="rightleg"></div>
+				<img src="assets/images/homer.gif" id="homer" alt="Homer">
 			</div>
+			<div class="statsArea">
+				<div class="stats" id="word">
+					<table id="wordTable"><tr id="wordRow"></tr></table>
+				</div>
+				<div class="stats" id="letterDiv">Choice: <span id="letter"></span></div>
+				<div class="stats" id="lettersDiv">Chosen: <span id="letters"></span></div>
+				<div class="stats" id="misses">Missed: <span id="miss">0</span></div>
+				<div class="stats" id="winsDiv">Wins: <span id="wins">0</span></div>
+				<div class="stats" id="lossesDiv">Losses: <span id="losses">0</span></div>
+			</div>
+		</div>
+	</div>
+		<script src="assets/js/rndmwrd.js"></script>
+		<script src="assets/js/hangmanobject.js"></script>
+		<script src="assets/js/interfaceControl.js"></script>
+		<script src="assets/js/gameinstantiation.js"></script>
 
 
 
-<script>
-// this tests to see if the letter is in the word.  If so, change the style sheet for that class. No need to loop.
-function testIn(theLetter){
-	console.log(theLetter+" made it to test in");
-	if (newGame.gameWord().indexOf(theLetter) > -1){
-		var tds = document.getElementsByClassName("td"+theLetter);
-		for (var i=0; i<tds.length; i++){
-			tds[i].style.color="yellow";
+
+		<script>
+		//This starts the whole shbang!
+		document.onload = CreateNewGame();
+		</script>
+		<script>
+		// this tests to see if the letter is in the word.  If so, change the style sheet for that class. No need to loop.
+
+
+		document.onKeyUp = function(chosenkey){
+			console.log("made it somehow to the onKeyup.");
+			//change the chosen key into a string.
+			if(chosenkey.keyCode >= 65 & chosenkey.keyCode <= 90){
+				var chnum = chosenkey.keyCode;
+				theLetter = String.fromCharCode(chnum);
+				newGame.gameLettersTriedLogic(theLetter);
+			}else{
+				alert("That is not a letter.");
+			}
 		}
-	}
-	else{
-		newGame.gameMisses++;
-		console.log(newGame.gameMisses);
-	}
-}
-
-document.onkeyup = function(chosenkey){
-	//change the chosen key into a string.
-	console.log(chosenkey.keyCode);
-	if(chosenkey.keyCode >= 65 & chosenkey.keyCode <= 90){
-		alert("IS A LETTER");
-		var chnum = chosenkey.keyCode;
-		theLetter = String.fromCharCode(chnum);
-		newGame.gameLetters.push(theLetter)
-		testIn(theLetter);
-	}else{
-			alert("That is not a letter.");
-	}
-}
-	</script>
-</body>
-</html>
+		</script>
+	</body>
+	</html>

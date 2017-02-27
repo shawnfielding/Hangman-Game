@@ -1,0 +1,110 @@
+h1, h2, .statsArea {
+  font-family: 'Rock Salt', cursive;
+  color: rgb(245,215,0);
+}
+
+h1, h2 {
+  font-size: xx-large;
+  -webkit-text-stroke: .5px black;
+  font-weight: 900;
+}
+
+td {
+  border-style: none;
+  border-width: thick;
+}
+
+.header{
+  height: 120px;
+  line-height: normal;
+  margin: 10px 50px 25px 100px;
+}
+
+.theBody{
+  width: 960px;
+  background-color: pink;
+  position: relative;
+
+}
+
+.imgdiv{
+  width: 50%;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+
+img {
+  width: 100%;
+}
+
+#head{
+  width: 100%;
+  height: 42%;
+}
+
+#chest{
+  width: 34%;
+  height: 21%;
+  bottom: 37%;
+  left: 30%;
+}
+
+#rightarm{
+  width: 36%;
+  height: 21%;
+  bottom: 37%;
+  left: 64%
+}
+
+#leftarm{
+  width: 30%;
+  height: 21%;
+  bottom:37%;
+  left: 0;
+}
+
+#waist{
+  width: 100%;
+  height: 20%;
+  bottom: 17%;
+}
+
+#leftleg{
+  width: 50%;
+  height: 17%;
+  bottom: 0;
+  left: 0;
+}
+
+#rightleg{
+  width: 50%;
+  height: 17%;
+  bottom: 0;
+  left: 50%;
+}
+
+.cover{
+  position: absolute;
+  opacity: 0;
+  background: white;
+  z-index: 99;
+  display:inline-block;
+}
+
+.statsArea{
+  float:right;
+  width:45%;
+  background: gray;
+  line-height: 3em;
+  font-size: large;
+
+}
+
+progress{
+  border: 5px solid gray;
+}
+
+#wordTable{
+  height: 100px;
+}
